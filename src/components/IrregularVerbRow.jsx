@@ -3,25 +3,15 @@ import React from 'react';
 
 export default function IrregularVerbRow({ verb }) {
   const playAudio = (text) => {
-    const cleanText = text.split('\n')[0];
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.8;
-    
-    const voices = window.speechSynthesis.getVoices();
-    const preferredVoice = voices.find(voice => 
-      voice.name.includes('Google US English Female') ||
-      voice.name.includes('Microsoft Zira') ||
-      (voice.lang === 'en-US' && voice.name.includes('Female'))
-    );
-    
-    if (preferredVoice) {
-      utterance.voice = preferredVoice;
-    }
-    utterance.pitch = 1;
-    utterance.rate = 0.9;
-    
-    speechSynthesis.speak(utterance);
+    const cleanText = text.split('\n')[0].toLowerCase().replace(/[^a-z]/g, '-');
+    const audio = new Audio(`/audio/${cleanText}.mp3`);
+    audio.play().catch(err => {
+      // Fallback to speech synthesis if audio file not found
+      const utterance = new SpeechSynthesisUtterance(text.split('\n')[0]);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    });
   };
 
   return (
