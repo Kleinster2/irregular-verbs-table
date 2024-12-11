@@ -443,9 +443,6 @@ export default function IrregularVerbsTable() {
               </div>
             ))}
           </div>
-            {data.map((verb, index) => (
-              <IrregularVerbRow key={index} verb={verb} />
-            ))}
           </div>
         </div>
       </div>
