@@ -8,7 +8,9 @@ const data = [
     english: "be",
     spanish: "ser/estar",
     present: "I am\n/aɪ ˈæm/",
-    past: "was\n/wɒz/"
+    past: "was\n/wɒz/",
+    presentAudio: "/audio/i-am.mp3",
+    pastAudio: "/audio/was.mp3"
   },
   {
     english: "be",
