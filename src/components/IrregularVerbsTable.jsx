@@ -407,7 +407,7 @@ export default function IrregularVerbsTable() {
                 </th>
                 <th scope="col" className="p-2 text-center border bg-gray-100 w-1/3 text-sm md:text-base">
                   <div className="flex items-center justify-center gap-2">
-                    Present Tense
+                    Simple Present Tense
                   </div>
                 </th>
                 <th scope="col" className="p-2 text-center border bg-gray-100 w-1/4 text-sm md:text-base">
