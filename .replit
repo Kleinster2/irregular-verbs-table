@@ -1,15 +1,25 @@
 
-run = "npm run dev"
-modules = ["nodejs-20:v8-20230920-bd784b9"]
+run = ["npm", "run", "dev"]
+hidden = [".config", "package-lock.json"]
+compile = ["npm", "run", "build"]
 
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-build = ["sh", "-c", "npm run build"]
-run = ["sh", "-c", "npm run preview"]
-deploymentTarget = "cloudrun"
+run = ["npm", "run", "preview"]
+build = ["npm", "run", "build"]
+deploymentTarget = "cloudflare-pages"
 
-[[ports]]
-localPort = 3000
-externalPort = 80
+[languages]
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio"
+
+[languages.css]
+pattern = "**/{*.less,*.scss,*.css}"
+
+[languages.css.languageServer]
+start = "css-language-server --stdio"
