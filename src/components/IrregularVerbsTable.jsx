@@ -1,5 +1,5 @@
 import React from 'react';
-import IrregularVerbRow from './IrregularVerbRow';
+import { DesktopVerbRow, MobileVerbCard } from './IrregularVerbRow';
 
 // Static data for irregular verbs
 const data = [
@@ -413,7 +413,7 @@ export default function IrregularVerbsTable() {
             </thead>
             <tbody>
               {data.map((verb, index) => (
-                <IrregularVerbRow key={index} verb={verb} />
+                <DesktopVerbRow key={index} verb={verb} />
               ))}
             </tbody>
           </table>
@@ -421,26 +421,7 @@ export default function IrregularVerbsTable() {
           {/* Mobile List View */}
           <div className="md:hidden space-y-4">
             {data.map((verb, index) => (
-              <div key={index} className="bg-white shadow rounded-lg p-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-semibold">English</h3>
-                    <p>{verb.english}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Spanish</h3>
-                    <p className="whitespace-pre-line">{verb.spanish}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Present</h3>
-                    <p className="whitespace-pre-line">{verb.present}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Past</h3>
-                    <p className="whitespace-pre-line">{verb.past}</p>
-                  </div>
-                </div>
-              </div>
+                <MobileVerbCard key={index} verb={verb} />
             ))}
           </div>
           </div>
