@@ -9,14 +9,17 @@ export default function IrregularVerbRow({ verb }) {
     utterance.rate = 0.8;
     
     const voices = window.speechSynthesis.getVoices();
-    const femaleVoice = voices.find(voice => 
-      voice.name.includes('Google US English Female') ||
-      (voice.lang === 'en-US' && voice.name.includes('Female'))
+    const preferredVoice = voices.find(voice => 
+      voice.name.includes('Microsoft David') ||
+      voice.name.includes('Google US English Male') ||
+      (voice.lang === 'en-US' && voice.name.includes('Male'))
     );
     
-    if (femaleVoice) {
-      utterance.voice = femaleVoice;
+    if (preferredVoice) {
+      utterance.voice = preferredVoice;
     }
+    utterance.pitch = 1;
+    utterance.rate = 0.9;
     
     speechSynthesis.speak(utterance);
   };
