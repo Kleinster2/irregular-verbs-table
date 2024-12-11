@@ -1,3 +1,4 @@
+
 import React from 'react';
 import IrregularVerbRow from './IrregularVerbRow';
 
@@ -384,8 +385,7 @@ export default function IrregularVerbsTable() {
         </div>
         
         <div className="overflow-x-auto print-section">
-          {/* Desktop Table Header */}
-          <table className="w-full border-collapse min-w-[640px] hidden md:table" aria-label="Irregular Verbs in English and Spanish">
+          <table className="w-full border-collapse min-w-[640px]" aria-label="Irregular Verbs in English and Spanish">
             <caption className="sr-only">List of irregular verbs with their present and past tense forms in English and Spanish translations</caption>
             <thead>
               <tr>
@@ -417,33 +417,6 @@ export default function IrregularVerbsTable() {
               ))}
             </tbody>
           </table>
-
-          {/* Mobile List View */}
-          <div className="md:hidden space-y-4">
-            {data.map((verb, index) => (
-              <div key={index} className="bg-white shadow rounded-lg p-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-semibold">English</h3>
-                    <p>{verb.english}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Spanish</h3>
-                    <p className="whitespace-pre-line">{verb.spanish}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Present</h3>
-                    <p className="whitespace-pre-line">{verb.present}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">Past</h3>
-                    <p className="whitespace-pre-line">{verb.past}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          </div>
         </div>
       </div>
     </div>
