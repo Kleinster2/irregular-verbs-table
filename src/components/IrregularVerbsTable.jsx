@@ -1,5 +1,5 @@
 import React from 'react';
-import { DesktopVerbRow, MobileVerbCard } from './IrregularVerbRow';
+import IrregularVerbRow from './IrregularVerbRow';
 
 // Static data for irregular verbs
 const data = [
@@ -413,7 +413,7 @@ export default function IrregularVerbsTable() {
             </thead>
             <tbody>
               {data.map((verb, index) => (
-                <DesktopVerbRow key={index} verb={verb} />
+                <IrregularVerbRow key={index} verb={verb} />
               ))}
             </tbody>
           </table>
