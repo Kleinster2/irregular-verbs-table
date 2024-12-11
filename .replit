@@ -8,8 +8,12 @@ channel = "stable-24_05"
 [deployment]
 build = ["npm", "run", "build"]
 run = ["npm", "run", "preview"]
-deploymentTarget = "cloudflare-pages"
+deploymentTarget = "static"
 
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
