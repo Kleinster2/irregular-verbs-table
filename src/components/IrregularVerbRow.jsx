@@ -24,7 +24,6 @@ export default function IrregularVerbRow({ verb }) {
           >
             🔊
           </button>
-        )}
       </td>
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
@@ -35,7 +34,6 @@ export default function IrregularVerbRow({ verb }) {
           >
             🔊
           </button>
-        )}
       </td>
     </tr>
   );
