@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function IrregularVerbRow({ verb }) {
   const [audioError, setAudioError] = useState(false);
 
-  const playAudio = (text) => {
+  const playAudio = async (text) => {
     try {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
@@ -18,12 +18,21 @@ export default function IrregularVerbRow({ verb }) {
       const utterance = new SpeechSynthesisUtterance(cleanText);
       
       // Get voices
-      let voices = window.speechSynthesis.getVoices();
+      const getVoices = () => {
+        return new Promise((resolve) => {
+          let voices = window.speechSynthesis.getVoices();
+          if (voices.length) {
+            resolve(voices);
+          } else {
+            window.speechSynthesis.onvoiceschanged = () => {
+              voices = window.speechSynthesis.getVoices();
+              resolve(voices);
+            };
+          }
+        });
+      };
       
-      // Wait for voices to be loaded
-      if (voices.length === 0) {
-        voices = window.speechSynthesis.getVoices();
-      }
+      const voices = await getVoices();
       
       // First try to find a female voice
       let selectedVoice = voices.find(voice => 
