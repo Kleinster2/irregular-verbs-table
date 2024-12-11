@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
@@ -9,7 +8,14 @@ export default function IrregularVerbRow({ verb }) {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
-      const cleanText = text.split('\n')[0];
+      // Special handling for 'read' in past tense
+      let cleanText;
+      if (text.startsWith('read\n') && verb.english === 'read' && text === verb.past) {
+        cleanText = 'red'; // Force pronunciation of past tense 'read'
+      } else {
+        const ipaMatch = text.match(/\/(.+?)\//);
+        cleanText = ipaMatch ? ipaMatch[1] : text.split('\n')[0];
+      }
       const utterance = new SpeechSynthesisUtterance(cleanText);
       
       // Get voices
