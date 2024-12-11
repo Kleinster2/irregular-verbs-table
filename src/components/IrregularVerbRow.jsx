@@ -2,11 +2,10 @@
 import React from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const playAudio = (audioPath) => {
-    if (audioPath) {
-      const audio = new Audio(audioPath);
-      audio.play();
-    }
+  const playAudio = (text) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
   };
 
   return (
@@ -17,7 +16,7 @@ export default function IrregularVerbRow({ verb }) {
         {verb.present}
         {verb.presentAudio && (
           <button 
-            onClick={() => playAudio(verb.presentAudio)}
+            onClick={() => playAudio(verb.present.split('\n')[0])}
             className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
             aria-label="Play present tense pronunciation"
           >
