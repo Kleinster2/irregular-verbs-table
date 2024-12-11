@@ -8,6 +8,14 @@ export default function IrregularVerbRow({ verb }) {
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'en-US';
     utterance.rate = 0.8; // Slightly slower for clarity
+    
+    // Get available voices and select a female US English voice if available
+    const voices = window.speechSynthesis.getVoices();
+    const usVoice = voices.find(voice => 
+      voice.lang.includes('en-US') && voice.name.includes('Female')
+    ) || voices.find(voice => voice.lang.includes('en-US')) || voices[0];
+    
+    utterance.voice = usVoice;
     speechSynthesis.speak(utterance);
   };
 
