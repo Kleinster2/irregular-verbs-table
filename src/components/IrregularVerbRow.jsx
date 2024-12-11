@@ -2,32 +2,34 @@
 import React from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const playAudio = async (text) => {
+  const playAudio = (text) => {
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+    
     const cleanText = text.split('\n')[0];
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.9;
+    const voices = window.speechSynthesis.getVoices();
     
-    const voices = await new Promise(resolve => {
-      const voices = window.speechSynthesis.getVoices();
-      if (voices.length) {
-        resolve(voices);
-      } else {
-        window.speechSynthesis.onvoiceschanged = () => {
-          resolve(window.speechSynthesis.getVoices());
-        };
-      }
-    });
-    
+    // Try to find a female voice
     const femaleVoice = voices.find(voice => 
+      voice.name.includes('Google US English Female') ||
+      voice.name.includes('Microsoft Zira Desktop') ||
       voice.name.includes('Samantha') ||
       voice.name.includes('Victoria') ||
+      voice.name.includes('Karen') ||
+      voice.name.includes('Moira') ||
+      voice.name.includes('Samantha') ||
       (voice.lang === 'en-US' && voice.name.includes('Female'))
-    );
+    ) || voices.find(voice => voice.lang === 'en-US');  // Fallback to any US voice
     
     if (femaleVoice) {
+      console.log('Selected voice:', femaleVoice.name);
       utterance.voice = femaleVoice;
     }
+    
+    utterance.lang = 'en-US';
+    utterance.rate = 0.9;
+    utterance.pitch = 1.2;  // Slightly higher pitch
     
     window.speechSynthesis.speak(utterance);
   };
