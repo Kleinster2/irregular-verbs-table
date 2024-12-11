@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import IrregularVerbsTable from './components/IrregularVerbsTable'
+
+import React from 'react'
 import './App.css'
+import IrregularVerbsTable from './components/IrregularVerbsTable'
 
 function App() {
   return (
