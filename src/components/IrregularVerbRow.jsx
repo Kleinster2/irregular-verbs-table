@@ -37,7 +37,7 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       utterance.lang = 'en-US';
-      utterance.rate = 0.9;
+      utterance.rate = 0.7;
       utterance.pitch = 1.2;
       
       // Add error handling
