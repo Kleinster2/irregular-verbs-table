@@ -2,25 +2,32 @@
 import React from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const playAudio = (text) => {
+  const playAudio = async (text) => {
     const cleanText = text.split('\n')[0];
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'en-US';
     utterance.rate = 0.9;
     
-    // Initialize voices
-    window.speechSynthesis.onvoiceschanged = () => {
+    const voices = await new Promise(resolve => {
       const voices = window.speechSynthesis.getVoices();
-      const femaleVoice = voices.find(voice => 
-        voice.name.includes('Samantha') ||
-        voice.name.includes('Victoria') ||
-        (voice.lang === 'en-US' && voice.name.includes('Female'))
-      );
-      
-      if (femaleVoice) {
-        utterance.voice = femaleVoice;
+      if (voices.length) {
+        resolve(voices);
+      } else {
+        window.speechSynthesis.onvoiceschanged = () => {
+          resolve(window.speechSynthesis.getVoices());
+        };
       }
-    };
+    });
+    
+    const femaleVoice = voices.find(voice => 
+      voice.name.includes('Samantha') ||
+      voice.name.includes('Victoria') ||
+      (voice.lang === 'en-US' && voice.name.includes('Female'))
+    );
+    
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
+    }
     
     window.speechSynthesis.speak(utterance);
   };
