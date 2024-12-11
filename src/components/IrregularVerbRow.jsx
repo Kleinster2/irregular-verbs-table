@@ -11,16 +11,22 @@ export default function IrregularVerbRow({ verb }) {
     const voices = window.speechSynthesis.getVoices();
     
     // Try to find a female voice
-    const femaleVoice = voices.find(voice => 
-      voice.name.includes('Google US English Female') ||
-      voice.name.includes('Microsoft Zira Desktop') ||
-      voice.name.includes('Samantha') ||
-      voice.name.includes('Victoria') ||
-      voice.name.includes('Karen') ||
-      voice.name.includes('Moira') ||
-      voice.name.includes('Samantha') ||
-      (voice.lang === 'en-US' && voice.name.includes('Female'))
-    ) || voices.find(voice => voice.lang === 'en-US');  // Fallback to any US voice
+    // Wait for voices to be loaded
+    if (voices.length === 0) {
+      voices = speechSynthesis.getVoices();
+    }
+    
+    // First try to find a female voice
+    let femaleVoice = voices.find(voice => 
+      (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
+      voice.name.includes('Microsoft Zira') ||
+      voice.name.includes('Google US English Female')
+    );
+    
+    // If no female voice found, use any English voice
+    if (!femaleVoice) {
+      femaleVoice = voices.find(voice => voice.lang.startsWith('en'));
+    }
     
     if (femaleVoice) {
       console.log('Selected voice:', femaleVoice.name);
