@@ -10,9 +10,9 @@ export default function IrregularVerbRow({ verb }) {
     
     const voices = window.speechSynthesis.getVoices();
     const preferredVoice = voices.find(voice => 
-      voice.name.includes('Microsoft David') ||
-      voice.name.includes('Google US English Male') ||
-      (voice.lang === 'en-US' && voice.name.includes('Male'))
+      voice.name.includes('Google US English Female') ||
+      voice.name.includes('Microsoft Zira') ||
+      (voice.lang === 'en-US' && voice.name.includes('Female'))
     );
     
     if (preferredVoice) {
