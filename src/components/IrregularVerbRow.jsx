@@ -58,7 +58,7 @@ export default function IrregularVerbRow({ verb }) {
     <tr className="border-b hover:bg-gray-50">
       <td className="px-6 py-4 whitespace-pre-line">{verb.english}</td>
       <td className="px-6 py-4 whitespace-pre-line">{verb.spanish}</td>
-      <td className="px-6 py-4 whitespace-pre-line relative">
+      <td className="px-6 py-4 whitespace-pre-line">
         {verb.present}
         <button 
           onClick={() => playAudio(verb.present)}
@@ -67,13 +67,8 @@ export default function IrregularVerbRow({ verb }) {
         >
           🔊
         </button>
-        {audioError && (
-          <div className="absolute top-0 right-0 bg-red-100 text-red-600 text-xs p-1 rounded">
-            Please enable audio in your browser settings
-          </div>
-        )}
       </td>
-      <td className="px-6 py-4 whitespace-pre-line relative">
+      <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
         <button 
           onClick={() => playAudio(verb.past)}
@@ -82,11 +77,6 @@ export default function IrregularVerbRow({ verb }) {
         >
           🔊
         </button>
-        {audioError && (
-          <div className="absolute top-0 right-0 bg-red-100 text-red-600 text-xs p-1 rounded">
-            Please enable audio in your browser settings
-          </div>
-        )}
       </td>
     </tr>
   );
