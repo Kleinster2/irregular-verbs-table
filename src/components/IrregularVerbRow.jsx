@@ -9,9 +9,7 @@ export default function IrregularVerbRow({ verb }) {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
-      // Get the IPA part between slashes
-      const ipaMatch = text.match(/\/(.+?)\//);
-      const cleanText = ipaMatch ? ipaMatch[1] : text.split('\n')[0];
+      const cleanText = text.split('\n')[0];
       const utterance = new SpeechSynthesisUtterance(cleanText);
       
       // Get voices
