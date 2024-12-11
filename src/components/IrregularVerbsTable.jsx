@@ -16,13 +16,17 @@ const data = [
     english: "be",
     spanish: "ser/estar",
     present: "he/she/it is\n/hɪ ʃiː ɪt ɪz/",
-    past: "was\n/wɒz/"
+    past: "was\n/wɒz/",
+    presentAudio: "/audio/is.mp3",
+    pastAudio: "/audio/was.mp3"
   },
   {
     english: "be",
     spanish: "ser/estar",
     present: "you/we/they are\n/juː wiː ðeɪ ɑːr/",
-    past: "were\n/wɜːr/"
+    past: "were\n/wɜːr/",
+    presentAudio: "/audio/are.mp3",
+    pastAudio: "/audio/were.mp3"
   },
   {
     english: "become",
