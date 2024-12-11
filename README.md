@@ -1,8 +1,14 @@
-# React + Vite
+# irregular-verbs-table
+Irregular Verbs Table: A React-based web application for displaying and interacting with irregular verb data. Built with Vite and styled using Tailwind CSS, this project is designed for easy deployment on GitHub Pages.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- Interactive table of irregular verbs
+- Responsive design with Tailwind CSS
+- Fast build and deployment with Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kleinster2/irregular-verbs-table.git
