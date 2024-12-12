@@ -51,7 +51,9 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       utterance.lang = 'en-US';
-      utterance.rate = 0.7;
+      // Check if device is mobile
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      utterance.rate = isMobile ? 0.5 : 0.7;
       utterance.pitch = 1.2;
       
       // Add error handling
