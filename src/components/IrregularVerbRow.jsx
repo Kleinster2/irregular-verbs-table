@@ -3,28 +3,9 @@ import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [voices, setVoices] = useState([]);
-
-  useEffect(() => {
-    function loadVoices() {
-      const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
-    }
-
-    loadVoices();
-    if (window.speechSynthesis.onvoiceschanged !== undefined) {
-      window.speechSynthesis.onvoiceschanged = loadVoices;
-    }
-
-    return () => {
-      if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, []);
 
   const playAudio = (text) => {
-    if (!window.speechSynthesis) {
+    if (typeof window === 'undefined' || !window.speechSynthesis) {
       console.error('Speech synthesis not supported');
       return;
     }
@@ -42,11 +23,6 @@ export default function IrregularVerbRow({ verb }) {
       utterance.lang = 'en-US';
       utterance.rate = 0.8;
       utterance.volume = 1;
-
-      const englishVoice = voices.find(voice => voice.lang.includes('en-US'));
-      if (englishVoice) {
-        utterance.voice = englishVoice;
-      }
 
       utterance.onend = () => setIsPlaying(false);
       utterance.onerror = () => {
