@@ -15,6 +15,12 @@ export default function IrregularVerbRow({ verb }) {
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red'; // Force pronunciation of past tense 'read'
       }
+      
+      // Add word boundary markers for 'it is'
+      if (cleanText.includes('it is')) {
+        cleanText = cleanText.replace('it is', 'it \u200B is');
+      }
+
       const utterance = new SpeechSynthesisUtterance(cleanText);
       
       // Get voices
