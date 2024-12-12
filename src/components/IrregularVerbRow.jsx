@@ -1,61 +1,73 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [synth, setSynth] = useState(null);
-  const [selectedVoice, setSelectedVoice] = useState(null);
+  const [audioError, setAudioError] = useState(false);
 
-  useEffect(() => {
-    // Initialize speech synthesis
-    const speechSynth = window.speechSynthesis;
-    setSynth(speechSynth);
-
-    // Function to set the voice
-    const setVoice = () => {
-      const voices = speechSynth.getVoices();
-      const englishVoice = voices.find(voice => 
-        voice.lang.startsWith('en') && voice.name.includes('Female')
-      ) || voices.find(voice => 
-        voice.lang.startsWith('en')
+  const playAudio = async (text) => {
+    try {
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+      
+      // Get just the English word, before the IPA notation
+      let cleanText = text.split('\n')[0];
+      
+      // Special handling for 'read' in past tense
+      if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
+        cleanText = 'red'; // Force pronunciation of past tense 'read'
+      }
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      
+      // Get voices
+      const getVoices = () => {
+        return new Promise((resolve) => {
+          let voices = window.speechSynthesis.getVoices();
+          if (voices.length) {
+            resolve(voices);
+          } else {
+            window.speechSynthesis.onvoiceschanged = () => {
+              voices = window.speechSynthesis.getVoices();
+              resolve(voices);
+            };
+          }
+        });
+      };
+      
+      const voices = await getVoices();
+      
+      // First try to find a female voice
+      let selectedVoice = voices.find(voice => 
+        (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
+        voice.name.includes('Microsoft Zira') ||
+        voice.name.includes('Google US English Female')
       );
       
-      if (englishVoice) {
-        setSelectedVoice(englishVoice);
+      // If no female voice found, use any English voice
+      if (!selectedVoice) {
+        selectedVoice = voices.find(voice => voice.lang.startsWith('en'));
       }
-    };
+      
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+      }
+      
+      utterance.lang = 'en-US';
+      // Check if device is mobile
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      utterance.rate = isMobile ? 0.5 : 0.7;
+      utterance.pitch = 1.2;
+      
+      // Add error handling
+      utterance.onerror = () => {
+        setAudioError(true);
+        setTimeout(() => setAudioError(false), 3000);
+      };
 
-    // Set voice immediately if available
-    setVoice();
-
-    // Handle async voice loading
-    speechSynth.onvoiceschanged = setVoice;
-
-    return () => {
-      speechSynth.cancel();
-    };
-  }, []);
-
-  const playAudio = (text) => {
-    if (!synth || !selectedVoice) return;
-
-    // Cancel any ongoing speech
-    synth.cancel();
-
-    // Get clean text without IPA notation
-    let cleanText = text.split('\n')[0];
-    
-    // Special handling for 'read' in past tense
-    if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
-      cleanText = 'red';
+      window.speechSynthesis.speak(utterance);
+      setAudioError(false);
+    } catch (error) {
+      setAudioError(true);
+      setTimeout(() => setAudioError(false), 3000);
     }
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.voice = selectedVoice;
-    utterance.rate = 0.8;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-
-    synth.speak(utterance);
   };
 
   return (
