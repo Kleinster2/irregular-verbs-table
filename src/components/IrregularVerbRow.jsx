@@ -5,8 +5,11 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Cancel any ongoing speech
+      // Reset speech synthesis state
       window.speechSynthesis.cancel();
+      
+      // Wait a moment for the cancel to complete
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
@@ -15,7 +18,23 @@ export default function IrregularVerbRow({ verb }) {
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red'; // Force pronunciation of past tense 'read'
       }
+      
       const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.rate = 1.2;
+      
+      // Ensure speech synthesis is properly cleaned up
+      utterance.onend = () => {
+        window.speechSynthesis.cancel();
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+        }
+      };
+      
+      utterance.onerror = (event) => {
+        console.error('Speech synthesis error:', event);
+        window.speechSynthesis.cancel();
+        setAudioError(true);
+      };
       
       // Get voices
       const getVoices = () => {
@@ -51,8 +70,16 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       utterance.lang = 'en-US';
-      utterance.rate = 0.5;
+      // Slower rate and add word boundaries for natural pauses
+      utterance.rate = 0.6;
       utterance.pitch = 1.2;
+      // Add word boundary markers
+      if (cleanText.includes('it is')) {
+        cleanText = cleanText.replace('it is', 'it\u2008is');
+      }
+      if (cleanText.includes('they are')) {
+        cleanText = cleanText.replace('they are', 'they\u2008are');
+      }
       
       // Add error handling
       utterance.onerror = () => {
