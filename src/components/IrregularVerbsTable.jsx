@@ -23,7 +23,7 @@ const data = [
   {
     english: "be",
     spanish: "ser/estar",
-    present: "you, we, they are\n/juː wiː ðeɪ ɑːr/",
+    present: "you are, we are, they are\n/juː ɑːr, wiː ɑːr, ðeɪ ɑːr/",
     past: "were\n/wɜːr/",
     presentAudio: "/audio/are.mp3",
     pastAudio: "/audio/were.mp3"
