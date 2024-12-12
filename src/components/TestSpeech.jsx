@@ -1,31 +1,46 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function TestSpeech() {
+  const [voices, setVoices] = useState([]);
+
+  useEffect(() => {
+    function loadVoices() {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    }
+
+    if (window.speechSynthesis) {
+      loadVoices();
+      window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
+    }
+
+    return () => {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
+      }
+    };
+  }, []);
+
   const handleTestSpeech = () => {
     if (!window.speechSynthesis) {
       console.error('Speech synthesis not supported');
       return;
     }
 
-    try {
-      window.speechSynthesis.cancel(); // Cancel any ongoing speech
-      const utterance = new SpeechSynthesisUtterance('Test speech');
-      utterance.lang = 'en-US';
-      utterance.rate = 1.0;
-      utterance.pitch = 1.0;
-      utterance.volume = 1;
-      
-      const voices = window.speechSynthesis.getVoices();
-      const englishVoice = voices.find(voice => voice.lang.startsWith('en-'));
-      if (englishVoice) {
-        utterance.voice = englishVoice;
-      }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance('Test speech');
+    utterance.lang = 'en-US';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1;
 
-      window.speechSynthesis.speak(utterance);
-    } catch (error) {
-      console.error('Speech synthesis error:', error);
+    const englishVoice = voices.find(voice => voice.lang.startsWith('en-'));
+    if (englishVoice) {
+      utterance.voice = englishVoice;
     }
+
+    window.speechSynthesis.speak(utterance);
   };
 
   return (
