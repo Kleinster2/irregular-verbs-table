@@ -2,20 +2,13 @@
 import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [speechEnabled, setSpeechEnabled] = useState(false);
-
-  useEffect(() => {
-    const checkSpeechSupport = () => {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        setSpeechEnabled(true);
-      }
-    };
-
-    checkSpeechSupport();
-  }, []);
+  const [speechEnabled, setSpeechEnabled] = useState(true);
 
   const playAudio = (text) => {
-    if (!window.speechSynthesis) return;
+    if (!('speechSynthesis' in window)) {
+      setSpeechEnabled(false);
+      return;
+    }
 
     try {
       window.speechSynthesis.cancel();
@@ -34,6 +27,7 @@ export default function IrregularVerbRow({ verb }) {
       window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
+      setSpeechEnabled(false);
     }
   };
 
