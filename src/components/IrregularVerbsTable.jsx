@@ -1,6 +1,7 @@
 
 import React from 'react';
 import IrregularVerbRow from './IrregularVerbRow';
+import TestSpeech from './TestSpeech';
 
 // Static data for irregular verbs
 const data = [
@@ -15,7 +16,7 @@ const data = [
   {
     english: "be",
     spanish: "ser/estar",
-    present: "he, she, it, is\n/hɪ ʃiː ɪt ɪz/",
+    present: "he, she, it is\n/hɪ ʃiː ɪt ɪz/",
     past: "was\n/wɒz/",
     presentAudio: "/audio/is.mp3",
     pastAudio: "/audio/was.mp3"
@@ -381,7 +382,10 @@ export default function IrregularVerbsTable() {
       </style>
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center print:hidden">
-          <h1 className="text-xl md:text-2xl font-bold">Irregular Verbs</h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-xl md:text-2xl font-bold">Irregular Verbs</h1>
+            <TestSpeech />
+          </div>
           <button
             onClick={() => window.print()}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
