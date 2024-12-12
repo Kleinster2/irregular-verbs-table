@@ -5,11 +5,11 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Resume and cancel any ongoing speech
-      if (window.speechSynthesis.paused) {
-        window.speechSynthesis.resume();
-      }
+      // Reset speech synthesis state
       window.speechSynthesis.cancel();
+      
+      // Wait a moment for the cancel to complete
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
@@ -20,11 +20,21 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 1.2; // Slightly faster
+      utterance.rate = 1.2;
       
-      // Handle mobile browser quirks
-      utterance.onend = () => window.speechSynthesis.cancel();
-      utterance.onerror = () => window.speechSynthesis.cancel();
+      // Ensure speech synthesis is properly cleaned up
+      utterance.onend = () => {
+        window.speechSynthesis.cancel();
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+        }
+      };
+      
+      utterance.onerror = (event) => {
+        console.error('Speech synthesis error:', event);
+        window.speechSynthesis.cancel();
+        setAudioError(true);
+      };
       
       // Get voices
       const getVoices = () => {
