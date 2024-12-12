@@ -3,6 +3,21 @@ import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [voices, setVoices] = useState([]);
+
+  useEffect(() => {
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  }, []);
 
   const playAudio = (text) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) {
@@ -23,6 +38,11 @@ export default function IrregularVerbRow({ verb }) {
       utterance.lang = 'en-US';
       utterance.rate = 0.8;
       utterance.volume = 1;
+
+      const englishVoice = voices.find(voice => voice.lang.includes('en-US'));
+      if (englishVoice) {
+        utterance.voice = englishVoice;
+      }
 
       utterance.onend = () => setIsPlaying(false);
       utterance.onerror = () => {
