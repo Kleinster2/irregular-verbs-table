@@ -1,8 +1,23 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [voices, setVoices] = useState([]);
+
+  useEffect(() => {
+    function loadVoices() {
+      const availableVoices = window.speechSynthesis?.getVoices() || [];
+      setVoices(availableVoices);
+    }
+
+    loadVoices();
+    window.speechSynthesis?.addEventListener('voiceschanged', loadVoices);
+
+    return () => {
+      window.speechSynthesis?.removeEventListener('voiceschanged', loadVoices);
+    };
+  }, []);
 
   const playAudio = (text) => {
     if (!window.speechSynthesis) {
@@ -11,25 +26,27 @@ export default function IrregularVerbRow({ verb }) {
     }
 
     try {
-      // Cancel any ongoing speech
       window.speechSynthesis.cancel();
 
-      // Clean the text
       let cleanText = text.split('\n')[0];
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
       }
 
-      // Create utterance
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'en-US';
-      utterance.rate = 0.8;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
       utterance.volume = 1;
 
-      // Handle end and error events
+      const englishVoice = voices.find(voice => voice.lang.startsWith('en-'));
+      if (englishVoice) {
+        utterance.voice = englishVoice;
+      }
+
       utterance.onend = () => setIsPlaying(false);
-      utterance.onerror = () => {
-        console.error('Speech synthesis error');
+      utterance.onerror = (event) => {
+        console.error('Speech synthesis error:', event);
         setIsPlaying(false);
       };
 
