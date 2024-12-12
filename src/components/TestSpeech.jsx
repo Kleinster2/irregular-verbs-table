@@ -2,45 +2,33 @@
 import React, { useState, useEffect } from 'react';
 
 export default function TestSpeech() {
-  const [voices, setVoices] = useState([]);
-
-  useEffect(() => {
-    function loadVoices() {
-      const availableVoices = window.speechSynthesis.getVoices();
-      setVoices(availableVoices);
-    }
-
-    if (window.speechSynthesis) {
-      loadVoices();
-      window.speechSynthesis.addEventListener('voiceschanged', loadVoices);
-    }
-
-    return () => {
-      if (window.speechSynthesis) {
-        window.speechSynthesis.removeEventListener('voiceschanged', loadVoices);
-      }
-    };
-  }, []);
-
   const handleTestSpeech = () => {
-    if (!window.speechSynthesis) {
+    const synth = window.speechSynthesis;
+    if (!synth) {
       console.error('Speech synthesis not supported');
       return;
     }
 
-    window.speechSynthesis.cancel();
+    // Cancel any ongoing speech
+    synth.cancel();
+
+    // Create and configure utterance
     const utterance = new SpeechSynthesisUtterance('Test speech');
     utterance.lang = 'en-US';
-    utterance.rate = 1.0;
+    utterance.rate = 0.8;
     utterance.pitch = 1.0;
     utterance.volume = 1;
 
-    const englishVoice = voices.find(voice => voice.lang.startsWith('en-'));
-    if (englishVoice) {
-      utterance.voice = englishVoice;
+    // Check if browser is Chrome
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    if (isChrome) {
+      // Chrome requires a slight delay
+      setTimeout(() => {
+        synth.speak(utterance);
+      }, 100);
+    } else {
+      synth.speak(utterance);
     }
-
-    window.speechSynthesis.speak(utterance);
   };
 
   return (
