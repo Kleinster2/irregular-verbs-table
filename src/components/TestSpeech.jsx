@@ -1,34 +1,31 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function TestSpeech() {
   const handleTestSpeech = () => {
-    const synth = window.speechSynthesis;
-    if (!synth) {
-      console.error('Speech synthesis not supported');
-      return;
-    }
+    // Wait for speech synthesis to be ready
+    const waitForSynth = () => {
+      return new Promise((resolve) => {
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+          const voices = window.speechSynthesis.getVoices();
+          if (voices.length > 0) {
+            resolve(voices);
+          } else {
+            window.speechSynthesis.addEventListener('voiceschanged', () => {
+              resolve(window.speechSynthesis.getVoices());
+            }, { once: true });
+          }
+        }
+      });
+    };
 
-    // Cancel any ongoing speech
-    synth.cancel();
-
-    // Create and configure utterance
-    const utterance = new SpeechSynthesisUtterance('Test speech');
-    utterance.lang = 'en-US';
-    utterance.rate = 0.8;
-    utterance.pitch = 1.0;
-    utterance.volume = 1;
-
-    // Check if browser is Chrome
-    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-    if (isChrome) {
-      // Chrome requires a slight delay
-      setTimeout(() => {
-        synth.speak(utterance);
-      }, 100);
-    } else {
-      synth.speak(utterance);
-    }
+    // Try to speak
+    waitForSynth().then(() => {
+      const utterance = new SpeechSynthesisUtterance('Test speech');
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      window.speechSynthesis.speak(utterance);
+    });
   };
 
   return (
