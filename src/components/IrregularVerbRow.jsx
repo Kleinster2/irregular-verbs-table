@@ -18,11 +18,11 @@ export default function IrregularVerbRow({ verb }) {
       
       // Add minimal pause between words
       if (cleanText.includes('it is')) {
-        cleanText = cleanText.replace('it is', 'it ' + String.fromCharCode(8203) + 'is');
+        cleanText = cleanText.replace('it is', 'it' + String.fromCharCode(8203) + 'is');
       }
 
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 0.7; // Slightly faster rate
+      utterance.rate = 0.8; // Faster rate for shorter pauses
       
       // Get voices
       const getVoices = () => {
