@@ -16,13 +16,8 @@ export default function IrregularVerbRow({ verb }) {
         cleanText = 'red'; // Force pronunciation of past tense 'read'
       }
       
-      // Add very minimal pause between words
-      if (cleanText.includes('it is')) {
-        cleanText = cleanText.replace('it is', 'it' + ' ' + 'is');
-      }
-
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 1.0; // Normal rate
+      utterance.rate = 1.2; // Slightly faster
       
       // Get voices
       const getVoices = () => {
