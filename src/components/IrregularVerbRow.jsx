@@ -20,7 +20,7 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 1.2;
+      utterance.rate = 0.6;
       
       // Ensure speech synthesis is properly cleaned up
       utterance.onend = () => {
