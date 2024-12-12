@@ -5,27 +5,35 @@ export default function IrregularVerbRow({ verb }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playAudio = (text) => {
+    if (!window.speechSynthesis) {
+      console.error('Speech synthesis not supported');
+      return;
+    }
+
     try {
-      setIsPlaying(true);
-      const utterance = new SpeechSynthesisUtterance();
-      
-      // Clean the text by removing phonetic notation
+      // Cancel any ongoing speech
+      window.speechSynthesis.cancel();
+
+      // Clean the text
       let cleanText = text.split('\n')[0];
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
       }
-      
-      utterance.text = cleanText;
+
+      // Create utterance
+      const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'en-US';
       utterance.rate = 0.8;
       utterance.volume = 1;
-      
+
+      // Handle end and error events
       utterance.onend = () => setIsPlaying(false);
       utterance.onerror = () => {
         console.error('Speech synthesis error');
         setIsPlaying(false);
       };
 
+      setIsPlaying(true);
       window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
