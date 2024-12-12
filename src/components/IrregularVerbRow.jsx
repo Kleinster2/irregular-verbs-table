@@ -2,18 +2,20 @@
 import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [speechSupported, setSpeechSupported] = useState(false);
+  const [speechSynthesis, setSpeechSynthesis] = useState(null);
 
   useEffect(() => {
-    setSpeechSupported(true);
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      setSpeechSynthesis(window.speechSynthesis);
+    }
   }, []);
 
   const playAudio = (text) => {
-    if (!speechSupported) return;
+    if (!speechSynthesis) return;
 
     try {
       // Cancel any ongoing speech
-      window.speechSynthesis.cancel();
+      speechSynthesis.cancel();
       
       // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
@@ -23,15 +25,19 @@ export default function IrregularVerbRow({ verb }) {
         cleanText = 'red';
       }
 
-      // Create and configure utterance
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'en-US';
       utterance.rate = 0.8;
       utterance.pitch = 1;
       utterance.volume = 1;
 
-      // Speak
-      window.speechSynthesis.speak(utterance);
+      // Wait for voices to be loaded
+      const voices = speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        utterance.voice = voices[0]; // Use first available voice
+      }
+
+      speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
     }
@@ -43,27 +49,23 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line">{verb.spanish}</td>
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.present}
-        {speechSupported && (
-          <button 
-            onClick={() => playAudio(verb.present)}
-            className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-            aria-label="Play present tense pronunciation"
-          >
-            🔊
-          </button>
-        )}
+        <button 
+          onClick={() => playAudio(verb.present)}
+          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          aria-label="Play present tense pronunciation"
+        >
+          🔊
+        </button>
       </td>
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
-        {speechSupported && (
-          <button 
-            onClick={() => playAudio(verb.past)}
-            className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-            aria-label="Play past tense pronunciation"
-          >
-            🔊
-          </button>
-        )}
+        <button 
+          onClick={() => playAudio(verb.past)}
+          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          aria-label="Play past tense pronunciation"
+        >
+          🔊
+        </button>
       </td>
     </tr>
   );
