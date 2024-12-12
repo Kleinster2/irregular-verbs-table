@@ -60,6 +60,9 @@ export default function IrregularVerbRow({ verb }) {
       if (cleanText.includes('it is')) {
         cleanText = cleanText.replace('it is', 'it\u2008is');
       }
+      if (cleanText.includes('they are')) {
+        cleanText = cleanText.replace('they are', 'they\u2008are');
+      }
       
       // Add error handling
       utterance.onerror = () => {
