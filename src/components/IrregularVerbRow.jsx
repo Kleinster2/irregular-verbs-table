@@ -16,13 +16,13 @@ export default function IrregularVerbRow({ verb }) {
         cleanText = 'red'; // Force pronunciation of past tense 'read'
       }
       
-      // Add minimal pause between words
+      // Add very minimal pause between words
       if (cleanText.includes('it is')) {
-        cleanText = cleanText.replace('it is', 'it' + String.fromCharCode(8203) + 'is');
+        cleanText = cleanText.replace('it is', 'it' + ' ' + 'is');
       }
 
       const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.rate = 0.8; // Faster rate for shorter pauses
+      utterance.rate = 1.0; // Normal rate
       
       // Get voices
       const getVoices = () => {
