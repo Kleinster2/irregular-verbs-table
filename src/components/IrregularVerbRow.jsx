@@ -2,19 +2,39 @@
 import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
+  const [audioError, setAudioError] = useState(false);
   const [synth, setSynth] = useState(null);
+  const [voice, setVoice] = useState(null);
 
   useEffect(() => {
-    setSynth(window.speechSynthesis);
+    const initSpeech = () => {
+      const synthesis = window.speechSynthesis;
+      setSynth(synthesis);
+      const voices = synthesis.getVoices();
+      const englishVoice = voices.find(v => v.lang.startsWith('en'));
+      if (englishVoice) setVoice(englishVoice);
+    };
+
+    if (window.speechSynthesis) {
+      if (window.speechSynthesis.getVoices().length > 0) {
+        initSpeech();
+      } else {
+        window.speechSynthesis.onvoiceschanged = initSpeech;
+      }
+    }
   }, []);
 
   const playAudio = (text) => {
-    if (!synth) return;
-    
+    if (!synth || !voice) {
+      setAudioError(true);
+      setTimeout(() => setAudioError(false), 3000);
+      return;
+    }
+
     // Cancel any ongoing speech
     synth.cancel();
-    
-    // Get clean text without IPA notation
+
+    // Get just the English word, before the IPA notation
     let cleanText = text.split('\n')[0];
     
     // Special handling for 'read' in past tense
@@ -23,9 +43,21 @@ export default function IrregularVerbRow({ verb }) {
     }
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.voice = voice;
     utterance.lang = 'en-US';
-    utterance.rate = 0.8;
+    
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    utterance.rate = isMobile ? 0.5 : 0.7;
     utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+      synth.cancel();
+    };
+
+    utterance.onerror = () => {
+      setAudioError(true);
+      setTimeout(() => setAudioError(false), 3000);
+    };
 
     synth.speak(utterance);
   };
