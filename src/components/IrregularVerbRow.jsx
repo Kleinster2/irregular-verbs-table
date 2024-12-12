@@ -1,26 +1,33 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
+  const [synth, setSynth] = useState(null);
+
+  useEffect(() => {
+    setSynth(window.speechSynthesis);
+  }, []);
+
   const playAudio = (text) => {
-    // Create an audio element
-    const audio = new Audio();
+    if (!synth) return;
+    
+    // Cancel any ongoing speech
+    synth.cancel();
     
     // Get clean text without IPA notation
-    let cleanText = text.split('\n')[0].toLowerCase();
+    let cleanText = text.split('\n')[0];
     
     // Special handling for 'read' in past tense
     if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
       cleanText = 'red';
     }
-    
-    // Set audio source
-    audio.src = `https://api.dictionaryapi.dev/media/pronunciations/en/${cleanText}.mp3`;
-    
-    // Play audio
-    audio.play().catch(error => {
-      console.error('Audio playback failed:', error);
-    });
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.8;
+    utterance.pitch = 1.0;
+
+    synth.speak(utterance);
   };
 
   return (
