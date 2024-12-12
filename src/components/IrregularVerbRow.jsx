@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [playingStates, setPlayingStates] = useState({
+    present: false,
+    past: false
+  });
   const [voices, setVoices] = useState([]);
 
   useEffect(() => {
@@ -19,15 +22,13 @@ export default function IrregularVerbRow({ verb }) {
     };
   }, []);
 
-  const playAudio = (text) => {
+  const playAudio = (text, tense) => {
     if (!window.speechSynthesis) {
       console.error('Speech synthesis not supported');
       return;
     }
 
     try {
-      window.speechSynthesis.cancel();
-
       let cleanText = text.split('\n')[0];
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
@@ -44,13 +45,13 @@ export default function IrregularVerbRow({ verb }) {
         utterance.voice = englishVoice;
       }
 
-      utterance.onend = () => setIsPlaying(false);
+      utterance.onend = () => setPlayingStates(prev => ({ ...prev, [tense]: false }));
       utterance.onerror = (event) => {
         console.error('Speech synthesis error:', event);
-        setIsPlaying(false);
+        setPlayingStates(prev => ({ ...prev, [tense]: false }));
       };
 
-      setIsPlaying(true);
+      setPlayingStates(prev => ({ ...prev, [tense]: true }));
       window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
@@ -65,9 +66,9 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.present}
         <button 
-          onClick={() => playAudio(verb.present)}
+          onClick={() => playAudio(verb.present, 'present')}
           className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
-          disabled={isPlaying}
+          disabled={playingStates.present}
           aria-label="Play present tense pronunciation"
         >
           🔊
@@ -76,9 +77,9 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
         <button 
-          onClick={() => playAudio(verb.past)}
+          onClick={() => playAudio(verb.past, 'past')}
           className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
-          disabled={isPlaying}
+          disabled={playingStates.past}
           aria-label="Play past tense pronunciation"
         >
           🔊
