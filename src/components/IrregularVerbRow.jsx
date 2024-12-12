@@ -5,9 +5,12 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Cancel any ongoing speech and reset the synthesizer
+      if (!window.speechSynthesis) {
+        throw new Error('Speech synthesis not supported');
+      }
+      
+      // Initialize speech synthesis
       window.speechSynthesis.cancel();
-      window.speechSynthesis.resume();
       
       // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
@@ -35,21 +38,14 @@ export default function IrregularVerbRow({ verb }) {
       
       const voices = await getVoices();
       
-      // First try to find a female voice
-      let selectedVoice = voices.find(voice => 
-        (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
-        voice.name.includes('Microsoft Zira') ||
-        voice.name.includes('Google US English Female')
-      );
+      // Use any available English voice
+      const selectedVoice = voices.find(voice => voice.lang.startsWith('en')) || voices[0];
       
-      // If no female voice found, use any English voice
       if (!selectedVoice) {
-        selectedVoice = voices.find(voice => voice.lang.startsWith('en'));
+        throw new Error('No voice available');
       }
       
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-      }
+      utterance.voice = selectedVoice;
       
       utterance.lang = 'en-US';
       // Check if device is mobile
