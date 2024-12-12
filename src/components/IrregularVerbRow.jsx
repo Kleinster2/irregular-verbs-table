@@ -5,7 +5,10 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Cancel any ongoing speech
+      // Resume and cancel any ongoing speech
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
       window.speechSynthesis.cancel();
       
       // Get just the English word, before the IPA notation
@@ -18,6 +21,10 @@ export default function IrregularVerbRow({ verb }) {
       
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.rate = 1.2; // Slightly faster
+      
+      // Handle mobile browser quirks
+      utterance.onend = () => window.speechSynthesis.cancel();
+      utterance.onerror = () => window.speechSynthesis.cancel();
       
       // Get voices
       const getVoices = () => {
