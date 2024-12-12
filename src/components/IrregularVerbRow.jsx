@@ -5,8 +5,9 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Cancel any ongoing speech
+      // Cancel any ongoing speech and reset the synthesizer
       window.speechSynthesis.cancel();
+      window.speechSynthesis.resume();
       
       // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
@@ -63,10 +64,19 @@ export default function IrregularVerbRow({ verb }) {
       };
 
       window.speechSynthesis.speak(utterance);
+      
+      // Cleanup after speech ends
+      utterance.onend = () => {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+      };
+      
       setAudioError(false);
     } catch (error) {
+      console.error('Speech synthesis error:', error);
       setAudioError(true);
       setTimeout(() => setAudioError(false), 3000);
+      window.speechSynthesis.resume();
     }
   };
 
