@@ -1,12 +1,31 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [voices, setVoices] = useState([]);
+
+  useEffect(() => {
+    function loadVoices() {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    }
+
+    loadVoices();
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    return () => {
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   const playAudio = (text) => {
     if (!window.speechSynthesis) {
-      console.warn('Speech synthesis not supported');
+      console.error('Speech synthesis not supported');
       return;
     }
 
@@ -24,34 +43,18 @@ export default function IrregularVerbRow({ verb }) {
       utterance.rate = 0.8;
       utterance.volume = 1;
 
-      // Load voices synchronously
-      let voices = speechSynthesis.getVoices();
-      if (voices.length === 0) {
-        // If voices aren't loaded yet, wait for them
-        speechSynthesis.onvoiceschanged = () => {
-          voices = speechSynthesis.getVoices();
-          const englishVoice = voices.find(voice => voice.lang.includes('en-')) || voices[0];
-          if (englishVoice) {
-            utterance.voice = englishVoice;
-          }
-          window.speechSynthesis.speak(utterance);
-        };
-      } else {
-        const englishVoice = voices.find(voice => voice.lang.includes('en-')) || voices[0];
-        if (englishVoice) {
-          utterance.voice = englishVoice;
-        }
-        window.speechSynthesis.speak(utterance);
+      const englishVoice = voices.find(voice => voice.lang.includes('en-US'));
+      if (englishVoice) {
+        utterance.voice = englishVoice;
       }
 
-      utterance.onend = () => {
-        setIsPlaying(false);
-      };
-
+      utterance.onend = () => setIsPlaying(false);
       utterance.onerror = () => {
         console.error('Speech synthesis error');
         setIsPlaying(false);
       };
+
+      window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
       setIsPlaying(false);
