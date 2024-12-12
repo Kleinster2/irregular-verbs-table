@@ -2,25 +2,29 @@
 import React, { useState, useEffect } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [speechSynthesis, setSpeechSynthesis] = useState(null);
+  const [voices, setVoices] = useState([]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-      setSpeechSynthesis(window.speechSynthesis);
+    function loadVoices() {
+      const availableVoices = window.speechSynthesis.getVoices();
+      if (availableVoices.length > 0) {
+        setVoices(availableVoices);
+      }
     }
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
   }, []);
 
   const playAudio = (text) => {
-    if (!speechSynthesis) return;
-
     try {
-      // Cancel any ongoing speech
-      speechSynthesis.cancel();
+      window.speechSynthesis.cancel();
       
-      // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
-
-      // Special handling for 'read' in past tense
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
       }
@@ -31,13 +35,12 @@ export default function IrregularVerbRow({ verb }) {
       utterance.pitch = 1;
       utterance.volume = 1;
 
-      // Wait for voices to be loaded
-      const voices = speechSynthesis.getVoices();
       if (voices.length > 0) {
-        utterance.voice = voices[0]; // Use first available voice
+        const englishVoice = voices.find(voice => voice.lang.includes('en-')) || voices[0];
+        utterance.voice = englishVoice;
       }
 
-      speechSynthesis.speak(utterance);
+      window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
     }
