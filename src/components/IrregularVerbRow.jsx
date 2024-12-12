@@ -1,39 +1,17 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [synth, setSynth] = useState(null);
-  const [voices, setVoices] = useState([]);
-
-  useEffect(() => {
-    // Initialize speech synthesis
-    const speechSynth = window.speechSynthesis;
-    setSynth(speechSynth);
-
-    // Load voices
-    const loadVoices = () => {
-      const availableVoices = speechSynth.getVoices();
-      setVoices(availableVoices);
-    };
-
-    loadVoices();
-    speechSynth.onvoiceschanged = loadVoices;
-
-    return () => {
-      if (speechSynth) {
-        speechSynth.onvoiceschanged = null;
-      }
-    };
-  }, []);
-
   const playAudio = (text) => {
-    if (!synth) return;
-
     try {
-      // Cancel any ongoing speech
-      synth.cancel();
+      if (!('speechSynthesis' in window)) {
+        console.warn('Speech synthesis not supported');
+        return;
+      }
       
+      window.speechSynthesis.cancel();
       let cleanText = text.split('\n')[0];
+      
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
       }
@@ -44,12 +22,7 @@ export default function IrregularVerbRow({ verb }) {
       utterance.pitch = 1;
       utterance.volume = 1;
 
-      if (voices.length > 0) {
-        const englishVoice = voices.find(voice => voice.lang.includes('en-')) || voices[0];
-        utterance.voice = englishVoice;
-      }
-
-      synth.speak(utterance);
+      window.speechSynthesis.speak(utterance);
     } catch (error) {
       console.error('Speech synthesis error:', error);
     }
