@@ -5,10 +5,7 @@ export default function IrregularVerbRow({ verb }) {
   const [speechSupported, setSpeechSupported] = useState(false);
 
   useEffect(() => {
-    // Check if speech synthesis is supported
-    if ('speechSynthesis' in window) {
-      setSpeechSupported(true);
-    }
+    setSpeechSupported(true);
   }, []);
 
   const playAudio = (text) => {
