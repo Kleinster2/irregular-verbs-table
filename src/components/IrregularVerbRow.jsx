@@ -1,72 +1,29 @@
+
 import React, { useState } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
-  const [audioError, setAudioError] = useState(false);
-
-  const playAudio = async (text) => {
+  const playAudio = (text) => {
     try {
       // Cancel any ongoing speech
       window.speechSynthesis.cancel();
       
       // Get just the English word, before the IPA notation
-      let cleanText = text.split('\n')[0];
+      const cleanText = text.split('\n')[0];
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      
+      // Configure utterance
+      utterance.lang = 'en-US';
+      utterance.rate = 0.8;
+      utterance.pitch = 1;
       
       // Special handling for 'read' in past tense
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
-        cleanText = 'red'; // Force pronunciation of past tense 'read'
+        utterance.text = 'red';
       }
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      
-      // Get voices
-      const getVoices = () => {
-        return new Promise((resolve) => {
-          let voices = window.speechSynthesis.getVoices();
-          if (voices.length) {
-            resolve(voices);
-          } else {
-            window.speechSynthesis.onvoiceschanged = () => {
-              voices = window.speechSynthesis.getVoices();
-              resolve(voices);
-            };
-          }
-        });
-      };
-      
-      const voices = await getVoices();
-      
-      // First try to find a female voice
-      let selectedVoice = voices.find(voice => 
-        (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
-        voice.name.includes('Microsoft Zira') ||
-        voice.name.includes('Google US English Female')
-      );
-      
-      // If no female voice found, use any English voice
-      if (!selectedVoice) {
-        selectedVoice = voices.find(voice => voice.lang.startsWith('en'));
-      }
-      
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
-      }
-      
-      utterance.lang = 'en-US';
-      // Check if device is mobile
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      utterance.rate = isMobile ? 0.5 : 0.7;
-      utterance.pitch = 1.2;
-      
-      // Add error handling
-      utterance.onerror = () => {
-        setAudioError(true);
-        setTimeout(() => setAudioError(false), 3000);
-      };
 
       window.speechSynthesis.speak(utterance);
-      setAudioError(false);
     } catch (error) {
-      setAudioError(true);
-      setTimeout(() => setAudioError(false), 3000);
+      console.error('Speech synthesis error:', error);
     }
   };
 
