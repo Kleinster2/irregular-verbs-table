@@ -400,17 +400,17 @@ export default function IrregularVerbsTable() {
                     Verb (English)
                   </div>
                 </th>
-                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/4 text-sm md:text-base">
+                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/5 text-sm md:text-base">
                   <div className="flex items-center justify-center gap-2">
                     Verb<br/>(Spanish)
                   </div>
                 </th>
-                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/3 text-sm md:text-base">
+                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/4 text-sm md:text-base">
                   <div className="flex items-center justify-center gap-2">
                     Simple Present Tense
                   </div>
                 </th>
-                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/4 text-sm md:text-base">
+                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/5 text-sm md:text-base">
                   <div className="flex items-center justify-center gap-2">
                     Simple Past Tense
                   </div>
