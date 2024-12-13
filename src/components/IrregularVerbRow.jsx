@@ -119,6 +119,20 @@ export default function IrregularVerbRow({ verb }) {
           🔊
         </button>
       </td>
+      <td className="px-6 py-4 whitespace-pre-line text-center">
+        <button 
+          onClick={async () => {
+            await playAudio(verb.present);
+            setTimeout(async () => {
+              await playAudio(verb.past);
+            }, 1000);
+          }}
+          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+          aria-label="Play present and past tense contrast"
+        >
+          Present → Past
+        </button>
+      </td>
     </tr>
   );
 }

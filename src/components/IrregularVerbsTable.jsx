@@ -415,6 +415,11 @@ export default function IrregularVerbsTable() {
                     Simple Past Tense
                   </div>
                 </th>
+                <th scope="col" className="p-2 text-center border bg-gray-100 w-1/6 text-sm md:text-base">
+                  <div className="flex items-center justify-center gap-2">
+                    Contrast
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
