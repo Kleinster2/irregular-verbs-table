@@ -122,10 +122,38 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
           onClick={async () => {
-            await playAudio(verb.present);
-            setTimeout(async () => {
+            if (verb.present.includes("he is")) {
+              // Second row pattern
+              await playAudio("he is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("he was");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("she is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("she was");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("it is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("it was");
+            } else if (verb.present.includes("you are")) {
+              // Third row pattern
+              await playAudio("you are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("you were");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("we are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("we were");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("they are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("they were");
+            } else {
+              // Default pattern
+              await playAudio(verb.present);
+              await new Promise(resolve => setTimeout(resolve, 1000));
               await playAudio(verb.past);
-            }, 1000);
+            }
           }}
           className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
           aria-label="Play present and past tense contrast"
