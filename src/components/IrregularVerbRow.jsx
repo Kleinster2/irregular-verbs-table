@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 export default function IrregularVerbRow({ verb }) {
@@ -5,24 +6,18 @@ export default function IrregularVerbRow({ verb }) {
 
   const playAudio = async (text) => {
     try {
-      // Reset speech synthesis state
       window.speechSynthesis.cancel();
-      
-      // Wait a moment for the cancel to complete
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Get just the English word, before the IPA notation
       let cleanText = text.split('\n')[0];
       
-      // Special handling for 'read' in past tense
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
-        cleanText = 'red'; // Force pronunciation of past tense 'read'
+        cleanText = 'red';
       }
       
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.rate = 0.6;
       
-      // Ensure speech synthesis is properly cleaned up
       utterance.onend = () => {
         window.speechSynthesis.cancel();
         if (window.speechSynthesis.speaking) {
@@ -36,7 +31,6 @@ export default function IrregularVerbRow({ verb }) {
         setAudioError(true);
       };
       
-      // Get voices
       const getVoices = () => {
         return new Promise((resolve) => {
           let voices = window.speechSynthesis.getVoices();
@@ -53,14 +47,12 @@ export default function IrregularVerbRow({ verb }) {
       
       const voices = await getVoices();
       
-      // First try to find a female voice
       let selectedVoice = voices.find(voice => 
         (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
         voice.name.includes('Microsoft Zira') ||
         voice.name.includes('Google US English Female')
       );
       
-      // If no female voice found, use any English voice
       if (!selectedVoice) {
         selectedVoice = voices.find(voice => voice.lang.startsWith('en'));
       }
@@ -70,18 +62,18 @@ export default function IrregularVerbRow({ verb }) {
       }
       
       utterance.lang = 'en-US';
-      // Slower rate and add word boundaries for natural pauses
       utterance.rate = 0.6;
       utterance.pitch = 1.2;
-      // Add word boundary markers
+
       if (cleanText.includes('it is')) {
         cleanText = cleanText.replace('it is', 'it\u2008is');
       }
       if (cleanText.includes('they are')) {
         cleanText = cleanText.replace('they are', 'they\u2008are');
       }
-      
-      // Add error handling
+
+      utterance.text = cleanText;
+
       utterance.onerror = () => {
         setAudioError(true);
         setTimeout(() => setAudioError(false), 3000);
@@ -122,36 +114,25 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
           onClick={async () => {
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+            
             if (verb.present.includes("he is")) {
-              // Second row pattern
-              await playAudio("he is");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("he was");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("she is");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("she was");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("it is");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("it was");
+              await playAudio("he is he was, she is she was, it is it was");
             } else if (verb.present.includes("you are")) {
-              // Third row pattern
-              await playAudio("you are");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("you were");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("we are");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("we were");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("they are");
-              await new Promise(resolve => setTimeout(resolve, 800));
-              await playAudio("they were");
+              const sequence = [
+                ["you are", "you were"],
+                ["we are", "we were"],
+                ["they are", "they were"]
+              ];
+              for (const [pres, past] of sequence) {
+                await playAudio(pres);
+                await delay(800);
+                await playAudio(past);
+                await delay(1200);
+              }
             } else {
-              // Default pattern
               await playAudio(verb.present);
-              await new Promise(resolve => setTimeout(resolve, 1000));
+              await delay(800);
               await playAudio(verb.past);
             }
           }}
