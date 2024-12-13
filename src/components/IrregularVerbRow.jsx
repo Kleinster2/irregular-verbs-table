@@ -122,34 +122,36 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
           onClick={async () => {
-            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
             if (verb.present.includes("he is")) {
-              const sequence = [
-                ["he is", "he was"],
-                ["she is", "she was"],
-                ["it is", "it was"]
-              ];
-              for (const [pres, past] of sequence) {
-                await playAudio(pres);
-                await delay(800);
-                await playAudio(past);
-                await delay(1200);
-              }
+              // Second row pattern
+              await playAudio("he is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("he was");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("she is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("she was");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("it is");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("it was");
             } else if (verb.present.includes("you are")) {
-              const sequence = [
-                ["you are", "you were"],
-                ["we are", "we were"],
-                ["they are", "they were"]
-              ];
-              for (const [pres, past] of sequence) {
-                await playAudio(pres);
-                await delay(800);
-                await playAudio(past);
-                await delay(1200);
-              }
+              // Third row pattern
+              await playAudio("you are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("you were");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("we are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("we were");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("they are");
+              await new Promise(resolve => setTimeout(resolve, 800));
+              await playAudio("they were");
             } else {
+              // Default pattern
               await playAudio(verb.present);
-              await delay(800);
+              await new Promise(resolve => setTimeout(resolve, 1000));
               await playAudio(verb.past);
             }
           }}
