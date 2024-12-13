@@ -122,10 +122,36 @@ export default function IrregularVerbRow({ verb }) {
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
           onClick={async () => {
-            await playAudio(verb.present);
-            setTimeout(async () => {
+            const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+            if (verb.present.includes("he is")) {
+              const sequence = [
+                ["he is", "he was"],
+                ["she is", "she was"],
+                ["it is", "it was"]
+              ];
+              for (const [pres, past] of sequence) {
+                await playAudio(pres);
+                await delay(800);
+                await playAudio(past);
+                await delay(1200);
+              }
+            } else if (verb.present.includes("you are")) {
+              const sequence = [
+                ["you are", "you were"],
+                ["we are", "we were"],
+                ["they are", "they were"]
+              ];
+              for (const [pres, past] of sequence) {
+                await playAudio(pres);
+                await delay(800);
+                await playAudio(past);
+                await delay(1200);
+              }
+            } else {
+              await playAudio(verb.present);
+              await delay(800);
               await playAudio(verb.past);
-            }, 1000);
+            }
           }}
           className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
           aria-label="Play present and past tense contrast"
