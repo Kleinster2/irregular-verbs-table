@@ -117,17 +117,7 @@ export default function IrregularVerbRow({ verb }) {
             const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
             
             if (verb.present.includes("he is")) {
-              const sequence = [
-                ["he is", "he was"],
-                ["she is", "she was"],
-                ["it is", "it was"]
-              ];
-              for (const [pres, past] of sequence) {
-                await playAudio(pres);
-                await delay(800);
-                await playAudio(past);
-                await delay(1200);
-              }
+              await playAudio("he is he was, she is she was, it is it was");
             } else if (verb.present.includes("you are")) {
               const sequence = [
                 ["you are", "you were"],
