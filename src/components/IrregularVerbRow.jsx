@@ -112,7 +112,7 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       </td>
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
-          onClick={async () => {
+          onMouseEnter={async () => {
             const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
             
             if (verb.present.includes("he is")) {
