@@ -97,18 +97,21 @@ const data = [
   {
     english: "choose",
     spanish: "elegir",
+    portuguese: "escolher",
     present: "choose\n/tʃuːz/",
     past: "chose\n/tʃoʊz/"
   },
   {
     english: "come",
     spanish: "venir",
+    portuguese: "vir",
     present: "come\n/kʌm/",
     past: "came\n/keɪm/"
   },
   {
     english: "cut",
     spanish: "cortar",
+    portuguese: "cortar",
     present: "cut\n/kʌt/",
     past: "cut\n/kʌt/"
   },
