@@ -93,8 +93,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.present}
         <button 
-          onClick={() => playAudio(verb.present)}
-          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md"
+          onMouseEnter={() => playAudio(verb.present)}
+          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md cursor-pointer"
           aria-label="Play present tense pronunciation"
         >
           🔊
@@ -103,8 +103,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
         <button 
-          onClick={() => playAudio(verb.past)}
-          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md"
+          onMouseEnter={() => playAudio(verb.past)}
+          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md cursor-pointer"
           aria-label="Play past tense pronunciation"
         >
           🔊
