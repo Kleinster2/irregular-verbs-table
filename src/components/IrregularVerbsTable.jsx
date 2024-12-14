@@ -16,6 +16,7 @@ const data = [
   {
     english: "be",
     spanish: "ser/estar",
+    portuguese: "ser/estar",
     present: "he is, she is, it is\n/hiː ɪz, ʃiː ɪz, ɪt ɪz/",
     past: "he was, she was, it was\n/wɒz/",
     presentAudio: "/audio/is.mp3",
@@ -24,6 +25,7 @@ const data = [
   {
     english: "be",
     spanish: "ser/estar",
+    portuguese: "ser/estar",
     present: "you are, we are, they are\n/juː ɑːr, wiː ɑːr, ðeɪ ɑːr/",
     past: "you were, we were, they were\n/wɜːr/",
     presentAudio: "/audio/are.mp3",
