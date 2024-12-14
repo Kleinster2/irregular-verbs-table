@@ -23,6 +23,41 @@ const data = [
     portuguese: "quebrar",
     present: "break\n/breɪk/",
     past: "broke\n/broʊk/"
+  },
+  {
+    english: "bring",
+    spanish: "traer",
+    portuguese: "trazer",
+    present: "bring\n/brɪŋ/",
+    past: "brought\n/brɔːt/"
+  },
+  {
+    english: "build",
+    spanish: "construir",
+    portuguese: "construir",
+    present: "build\n/bɪld/",
+    past: "built\n/bɪlt/"
+  },
+  {
+    english: "buy",
+    spanish: "comprar",
+    portuguese: "comprar",
+    present: "buy\n/baɪ/",
+    past: "bought\n/bɔːt/"
+  },
+  {
+    english: "catch",
+    spanish: "atrapar",
+    portuguese: "pegar",
+    present: "catch\n/kætʃ/",
+    past: "caught\n/kɔːt/"
+  },
+  {
+    english: "come",
+    spanish: "venir",
+    portuguese: "vir",
+    present: "come\n/kʌm/",
+    past: "came\n/keɪm/"
   }
 ];
 
