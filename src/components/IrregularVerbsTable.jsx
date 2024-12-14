@@ -118,60 +118,70 @@ const data = [
   {
     english: "do",
     spanish: "hacer",
+    portuguese: "fazer",
     present: "do\n/duː/",
     past: "did\n/dɪd/"
   },
   {
     english: "drink",
     spanish: "beber",
+    portuguese: "beber",
     present: "drink\n/drɪŋk/",
     past: "drank\n/dræŋk/"
   },
   {
     english: "drive",
     spanish: "conducir",
+    portuguese: "dirigir",
     present: "drive\n/draɪv/",
     past: "drove\n/droʊv/"
   },
   {
     english: "eat",
     spanish: "comer",
+    portuguese: "comer",
     present: "eat\n/iːt/",
     past: "ate\n/eɪt/"
   },
   {
     english: "fall",
     spanish: "caer",
+    portuguese: "cair",
     present: "fall\n/fɔːl/",
     past: "fell\n/fɛl/"
   },
   {
     english: "feel",
     spanish: "sentir",
+    portuguese: "sentir",
     present: "feel\n/fiːl/",
     past: "felt\n/fɛlt/"
   },
   {
     english: "fly",
     spanish: "volar",
+    portuguese: "voar",
     present: "fly\n/flaɪ/",
     past: "flew\n/fluː/"
   },
   {
     english: "forget",
     spanish: "olvidar",
+    portuguese: "esquecer",
     present: "forget\n/fərˈɡɛt/",
     past: "forgot\n/fərˈɡɒt/"
   },
   {
     english: "freeze",
     spanish: "congelar",
+    portuguese: "congelar",
     present: "freeze\n/friːz/",
     past: "froze\n/froʊz/"
   },
   {
     english: "give",
     spanish: "dar",
+    portuguese: "dar",
     present: "give\n/ɡɪv/",
     past: "gave\n/ɡeɪv/"
   },
