@@ -3,7 +3,27 @@ import React from 'react';
 import IrregularVerbRow from './IrregularVerbRow';
 
 const data = [
-  // ... verb data stays the same ...
+  {
+    english: "be",
+    spanish: "ser/estar",
+    portuguese: "ser/estar",
+    present: "am/is/are\n/æm/ɪz/ɑr/",
+    past: "was/were\n/wʌz/wɜr/"
+  },
+  {
+    english: "begin",
+    spanish: "comenzar/empezar",
+    portuguese: "começar",
+    present: "begin\n/bɪˈɡɪn/",
+    past: "began\n/bɪˈɡæn/"
+  },
+  {
+    english: "break",
+    spanish: "romper",
+    portuguese: "quebrar",
+    present: "break\n/breɪk/",
+    past: "broke\n/broʊk/"
+  }
 ];
 
 export default function IrregularVerbsTable() {
