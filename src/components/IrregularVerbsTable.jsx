@@ -216,7 +216,7 @@ const data = [
   {
     english: "see",
     spanish: "ver",
-    portuguese: "ver",
+    portuguese: "ver/enxergar",
     present: "see\n/siː/",
     past: "saw\n/sɔː/"
   },
@@ -229,8 +229,8 @@ const data = [
   },
   {
     english: "send",
-    spanish: "enviar",
-    portuguese: "enviar",
+    spanish: "enviar/mandar",
+    portuguese: "enviar/mandar",
     present: "send\n/sɛnd/",
     past: "sent\n/sɛnt/"
   },
@@ -279,7 +279,7 @@ const data = [
   {
     english: "take",
     spanish: "tomar",
-    portuguese: "pegar",
+    portuguese: "pegar/levar",
     present: "take\n/teɪk/",
     past: "took\n/tʊk/"
   },
@@ -293,7 +293,7 @@ const data = [
   {
     english: "tell",
     spanish: "decir",
-    portuguese: "dizer",
+    portuguese: "dizer/contar",
     present: "tell\n/tɛl/",
     past: "told\n/toʊld/"
   },
@@ -312,7 +312,7 @@ const data = [
     past: "understood\n/ˌʌndərˈstʊd/"
   },
   {
-    english: "wake",
+    english: "wake up",
     spanish: "despertar",
     portuguese: "acordar",
     present: "wake\n/weɪk/",
@@ -328,7 +328,7 @@ const data = [
   {
     english: "win",
     spanish: "ganar",
-    portuguese: "ganhar",
+    portuguese: "ganhar/vencer",
     present: "win\n/wɪn/",
     past: "won\n/wʌn/"
   },
