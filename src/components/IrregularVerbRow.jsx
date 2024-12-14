@@ -135,7 +135,7 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
               await playAudio(verb.past);
             }
           }}
-          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md"
           aria-label="Play present and past tense contrast"
         >
           Present → Past

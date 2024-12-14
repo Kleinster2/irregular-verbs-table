@@ -380,13 +380,13 @@ export default function IrregularVerbsTable() {
           <div className="flex gap-4">
             <button
               onClick={() => setLanguage(language === 'spanish' ? 'portuguese' : 'spanish')}
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
             >
               {language === 'spanish' ? 'Switch to Portuguese' : 'Switch to Spanish'}
             </button>
             <button
               onClick={() => window.print()}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
             >
               Print Table
             </button>
