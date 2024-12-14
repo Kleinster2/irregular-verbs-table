@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 
+let activeTimeout = null;
+
 export default function IrregularVerbRow({ verb, language = 'spanish' }) {
   const [audioError, setAudioError] = useState(false);
+  
+  const clearActiveAudio = () => {
+    if (activeTimeout) {
+      clearTimeout(activeTimeout);
+      activeTimeout = null;
+    }
+    window.speechSynthesis.cancel();
+  };
 
   const playAudio = async (text) => {
     try {
-      window.speechSynthesis.cancel();
+      clearActiveAudio();
       await new Promise(resolve => setTimeout(resolve, 100));
       
       let cleanText = text.split('\n')[0];
