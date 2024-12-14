@@ -349,6 +349,8 @@ const data = [
 ];
 
 export default function IrregularVerbsTable() {
+  const [language, setLanguage] = React.useState('spanish');
+  
   return (
     <div className="w-full">
       <style>
@@ -382,7 +384,14 @@ export default function IrregularVerbsTable() {
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center print:hidden">
           <h1 className="text-xl md:text-2xl font-bold">Irregular Verbs</h1>
-          <button
+          <div className="flex gap-4">
+            <button
+              onClick={() => setLanguage(language === 'spanish' ? 'portuguese' : 'spanish')}
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            >
+              {language === 'spanish' ? 'Switch to Portuguese' : 'Switch to Spanish'}
+            </button>
+            <button
             onClick={() => window.print()}
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
@@ -402,7 +411,7 @@ export default function IrregularVerbsTable() {
                 </th>
                 <th scope="col" className="p-2 text-center border bg-gray-100 w-1/5 text-sm md:text-base">
                   <div className="flex items-center justify-center gap-2">
-                    Verb<br/>(Spanish)
+                    Verb<br/>({language === 'spanish' ? 'Spanish' : 'Portuguese'})
                   </div>
                 </th>
                 <th scope="col" className="p-2 text-center border bg-gray-100 w-1/4 text-sm md:text-base">
@@ -424,7 +433,7 @@ export default function IrregularVerbsTable() {
             </thead>
             <tbody>
               {data.map((verb, index) => (
-                <IrregularVerbRow key={index} verb={verb} />
+                <IrregularVerbRow key={index} verb={verb} language={language} />
               ))}
             </tbody>
           </table>
