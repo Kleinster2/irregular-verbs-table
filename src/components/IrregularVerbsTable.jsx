@@ -128,6 +128,90 @@ const data = [
     portuguese: "ter",
     present: "have\n/hæv/",
     past: "had\n/hæd/"
+  },
+  {
+    english: "hear",
+    spanish: "oír",
+    portuguese: "ouvir",
+    present: "hear\n/hɪər/",
+    past: "heard\n/hɜrd/"
+  },
+  {
+    english: "hold",
+    spanish: "sostener",
+    portuguese: "segurar",
+    present: "hold\n/hoʊld/",
+    past: "held\n/hɛld/"
+  },
+  {
+    english: "keep",
+    spanish: "mantener",
+    portuguese: "manter",
+    present: "keep\n/kiːp/",
+    past: "kept\n/kɛpt/"
+  },
+  {
+    english: "know",
+    spanish: "saber",
+    portuguese: "saber",
+    present: "know\n/noʊ/",
+    past: "knew\n/nuː/"
+  },
+  {
+    english: "leave",
+    spanish: "salir/dejar",
+    portuguese: "sair/deixar",
+    present: "leave\n/liːv/",
+    past: "left\n/lɛft/"
+  },
+  {
+    english: "lose",
+    spanish: "perder",
+    portuguese: "perder",
+    present: "lose\n/luːz/",
+    past: "lost\n/lɔst/"
+  },
+  {
+    english: "make",
+    spanish: "hacer",
+    portuguese: "fazer",
+    present: "make\n/meɪk/",
+    past: "made\n/meɪd/"
+  },
+  {
+    english: "read",
+    spanish: "leer",
+    portuguese: "ler",
+    present: "read\n/riːd/",
+    past: "read\n/rɛd/"
+  },
+  {
+    english: "run",
+    spanish: "correr",
+    portuguese: "correr",
+    present: "run\n/rʌn/",
+    past: "ran\n/ræn/"
+  },
+  {
+    english: "say",
+    spanish: "decir",
+    portuguese: "dizer",
+    present: "say\n/seɪ/",
+    past: "said\n/sɛd/"
+  },
+  {
+    english: "see",
+    spanish: "ver",
+    portuguese: "ver",
+    present: "see\n/siː/",
+    past: "saw\n/sɔː/"
+  },
+  {
+    english: "sell",
+    spanish: "vender",
+    portuguese: "vender",
+    present: "sell\n/sɛl/",
+    past: "sold\n/soʊld/"
   }
 ];
 
