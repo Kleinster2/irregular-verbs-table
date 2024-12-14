@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 let activeTimeout = null;
@@ -26,53 +27,29 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       
       const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.rate = 0.6;
+      utterance.pitch = 1.2;
+      utterance.lang = 'en-US';
       
-      utterance.onend = () => {
-        window.speechSynthesis.cancel();
-        if (window.speechSynthesis.speaking) {
-          window.speechSynthesis.cancel();
+      const voices = await new Promise((resolve) => {
+        let voices = window.speechSynthesis.getVoices();
+        if (voices.length) {
+          resolve(voices);
+        } else {
+          window.speechSynthesis.onvoiceschanged = () => {
+            resolve(window.speechSynthesis.getVoices());
+          };
         }
-      };
+      });
       
-      utterance.onerror = (event) => {
-        console.error('Speech synthesis error:', event);
-        window.speechSynthesis.cancel();
-        setAudioError(true);
-      };
-      
-      const getVoices = () => {
-        return new Promise((resolve) => {
-          let voices = window.speechSynthesis.getVoices();
-          if (voices.length) {
-            resolve(voices);
-          } else {
-            window.speechSynthesis.onvoiceschanged = () => {
-              voices = window.speechSynthesis.getVoices();
-              resolve(voices);
-            };
-          }
-        });
-      };
-      
-      const voices = await getVoices();
-      
-      let selectedVoice = voices.find(voice => 
+      const selectedVoice = voices.find(voice => 
         (voice.name.includes('Female') && voice.lang.startsWith('en')) ||
         voice.name.includes('Microsoft Zira') ||
         voice.name.includes('Google US English Female')
-      );
-      
-      if (!selectedVoice) {
-        selectedVoice = voices.find(voice => voice.lang.startsWith('en'));
-      }
+      ) || voices.find(voice => voice.lang.startsWith('en'));
       
       if (selectedVoice) {
         utterance.voice = selectedVoice;
       }
-      
-      utterance.lang = 'en-US';
-      utterance.rate = 0.6;
-      utterance.pitch = 1.2;
 
       if (cleanText.includes('it is')) {
         cleanText = cleanText.replace('it is', 'it\u2008is');
@@ -82,6 +59,10 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       }
 
       utterance.text = cleanText;
+      
+      utterance.onend = () => {
+        window.speechSynthesis.cancel();
+      };
 
       utterance.onerror = () => {
         setAudioError(true);
@@ -89,8 +70,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       };
 
       window.speechSynthesis.speak(utterance);
-      setAudioError(false);
     } catch (error) {
+      console.error('Audio playback error:', error);
       setAudioError(true);
       setTimeout(() => setAudioError(false), 3000);
     }
