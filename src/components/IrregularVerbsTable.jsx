@@ -58,6 +58,76 @@ const data = [
     portuguese: "vir",
     present: "come\n/kʌm/",
     past: "came\n/keɪm/"
+  },
+  {
+    english: "do",
+    spanish: "hacer",
+    portuguese: "fazer",
+    present: "do\n/duː/",
+    past: "did\n/dɪd/"
+  },
+  {
+    english: "drink",
+    spanish: "beber",
+    portuguese: "beber",
+    present: "drink\n/drɪŋk/",
+    past: "drank\n/dræŋk/"
+  },
+  {
+    english: "eat",
+    spanish: "comer",
+    portuguese: "comer",
+    present: "eat\n/iːt/",
+    past: "ate\n/eɪt/"
+  },
+  {
+    english: "fall",
+    spanish: "caer",
+    portuguese: "cair",
+    present: "fall\n/fɔːl/",
+    past: "fell\n/fɛl/"
+  },
+  {
+    english: "feel",
+    spanish: "sentir",
+    portuguese: "sentir",
+    present: "feel\n/fiːl/",
+    past: "felt\n/fɛlt/"
+  },
+  {
+    english: "find",
+    spanish: "encontrar",
+    portuguese: "encontrar",
+    present: "find\n/faɪnd/",
+    past: "found\n/faʊnd/"
+  },
+  {
+    english: "get",
+    spanish: "obtener",
+    portuguese: "obter",
+    present: "get\n/ɡɛt/",
+    past: "got\n/ɡɒt/"
+  },
+  {
+    english: "give",
+    spanish: "dar",
+    portuguese: "dar",
+    present: "give\n/ɡɪv/",
+    past: "gave\n/ɡeɪv/"
+  },
+  {
+    english: "go",
+    spanish: "ir",
+    portuguese: "ir",
+    present: "go\n/ɡoʊ/",
+    past: "went\n/wɛnt/"
+  },
+  {
+    english: "have",
+    spanish: "tener",
+    portuguese: "ter",
+    present: "have\n/hæv/",
+    past: "had\n/hæd/"
   }
 ];
 
