@@ -212,6 +212,118 @@ const data = [
     portuguese: "vender",
     present: "sell\n/sɛl/",
     past: "sold\n/soʊld/"
+  },
+  {
+    english: "send",
+    spanish: "enviar",
+    portuguese: "enviar",
+    present: "send\n/sɛnd/",
+    past: "sent\n/sɛnt/"
+  },
+  {
+    english: "show",
+    spanish: "mostrar",
+    portuguese: "mostrar",
+    present: "show\n/ʃoʊ/",
+    past: "showed\n/ʃoʊd/"
+  },
+  {
+    english: "sing",
+    spanish: "cantar",
+    portuguese: "cantar",
+    present: "sing\n/sɪŋ/",
+    past: "sang\n/sæŋ/"
+  },
+  {
+    english: "sit",
+    spanish: "sentarse",
+    portuguese: "sentar-se",
+    present: "sit\n/sɪt/",
+    past: "sat\n/sæt/"
+  },
+  {
+    english: "sleep",
+    spanish: "dormir",
+    portuguese: "dormir",
+    present: "sleep\n/sliːp/",
+    past: "slept\n/slɛpt/"
+  },
+  {
+    english: "speak",
+    spanish: "hablar",
+    portuguese: "falar",
+    present: "speak\n/spiːk/",
+    past: "spoke\n/spoʊk/"
+  },
+  {
+    english: "stand",
+    spanish: "estar de pie",
+    portuguese: "ficar de pé",
+    present: "stand\n/stænd/",
+    past: "stood\n/stʊd/"
+  },
+  {
+    english: "take",
+    spanish: "tomar",
+    portuguese: "pegar",
+    present: "take\n/teɪk/",
+    past: "took\n/tʊk/"
+  },
+  {
+    english: "teach",
+    spanish: "enseñar",
+    portuguese: "ensinar",
+    present: "teach\n/tiːtʃ/",
+    past: "taught\n/tɔːt/"
+  },
+  {
+    english: "tell",
+    spanish: "decir",
+    portuguese: "dizer",
+    present: "tell\n/tɛl/",
+    past: "told\n/toʊld/"
+  },
+  {
+    english: "think",
+    spanish: "pensar",
+    portuguese: "pensar",
+    present: "think\n/θɪŋk/",
+    past: "thought\n/θɔːt/"
+  },
+  {
+    english: "understand",
+    spanish: "entender",
+    portuguese: "entender",
+    present: "understand\n/ˌʌndərˈstænd/",
+    past: "understood\n/ˌʌndərˈstʊd/"
+  },
+  {
+    english: "wake",
+    spanish: "despertar",
+    portuguese: "acordar",
+    present: "wake\n/weɪk/",
+    past: "woke\n/woʊk/"
+  },
+  {
+    english: "wear",
+    spanish: "llevar puesto",
+    portuguese: "vestir",
+    present: "wear\n/wɛr/",
+    past: "wore\n/wɔr/"
+  },
+  {
+    english: "win",
+    spanish: "ganar",
+    portuguese: "ganhar",
+    present: "win\n/wɪn/",
+    past: "won\n/wʌn/"
+  },
+  {
+    english: "write",
+    spanish: "escribir",
+    portuguese: "escrever",
+    present: "write\n/raɪt/",
+    past: "wrote\n/roʊt/"
   }
 ];
 
