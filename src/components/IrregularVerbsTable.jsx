@@ -41,12 +41,14 @@ const data = [
   {
     english: "begin",
     spanish: "empezar",
+    portuguese: "começar",
     present: "begin\n/bɪˈɡɪn/",
     past: "began\n/bɪˈɡæn/"
   },
   {
     english: "bite",
     spanish: "morder",
+    portuguese: "morder",
     present: "bite\n/baɪt/",
     past: "bit\n/bɪt/"
   },
