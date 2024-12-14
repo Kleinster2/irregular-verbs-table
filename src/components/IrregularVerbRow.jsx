@@ -94,7 +94,7 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
         {verb.present}
         <button 
           onClick={() => playAudio(verb.present)}
-          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md"
           aria-label="Play present tense pronunciation"
         >
           🔊
