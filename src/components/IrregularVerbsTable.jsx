@@ -188,186 +188,217 @@ const data = [
   {
     english: "go",
     spanish: "ir",
+    portuguese: "ir",
     present: "go\n/ɡoʊ/",
     past: "went\n/wɛnt/"
   },
   {
     english: "grow",
     spanish: "crecer",
+    portuguese: "crescer",
     present: "grow\n/ɡroʊ/",
     past: "grew\n/ɡruː/"
   },
   {
     english: "hold",
     spanish: "sostener/mantener",
+    portuguese: "segurar/manter",
     present: "hold\n/hoʊld/",
     past: "held\n/hɛld/"
   },
   {
     english: "keep",
     spanish: "mantener/guardar",
+    portuguese: "manter/guardar",
     present: "keep\n/kiːp/",
     past: "kept\n/kɛpt/"
   },
   {
     english: "know",
     spanish: "saber",
+    portuguese: "saber",
     present: "know\n/noʊ/",
     past: "knew\n/njuː/"
   },
   {
     english: "let",
     spanish: "permitir",
+    portuguese: "permitir/deixar",
     present: "let\n/lɛt/",
     past: "let\n/lɛt/"
   },
   {
     english: "make",
     spanish: "hacer",
+    portuguese: "fazer",
     present: "make\n/meɪk/",
     past: "made\n/meɪd/"
   },
   {
     english: "meet",
     spanish: "encontrarse con\nreunirse con",
+    portuguese: "encontrar\nreuinir",
     present: "meet\n/miːt/",
     past: "met\n/mɛt/"
   },
   {
     english: "read",
     spanish: "leer",
+    portuguese: "ler",
     present: "read\n/riːd/",
     past: "read\n/rɛd/"
   },
   {
     english: "rise",
     spanish: "elevarse/subir",
+    portuguese: "subir/elevar-se",
     present: "rise\n/raɪz/",
     past: "rose\n/roʊz/"
   },
   {
     english: "run",
     spanish: "correr",
+    portuguese: "correr",
     present: "run\n/rʌn/",
     past: "ran\n/ræn/"
   },
   {
     english: "say",
     spanish: "decir (algo)",
+    portuguese: "dizer",
     present: "say\n/seɪ/",
     past: "said\n/sɛd/"
   },
   {
     english: "see",
     spanish: "ver",
+    portuguese: "ver",
     present: "see\n/siː/",
     past: "saw\n/sɔː/"
   },
   {
     english: "sell",
     spanish: "vender",
+    portuguese: "vender",
     present: "sell\n/sɛl/",
     past: "sold\n/soʊld/"
   },
   {
     english: "send",
     spanish: "enviar",
+    portuguese: "enviar",
     present: "send\n/sɛnd/",
     past: "sent\n/sɛnt/"
   },
   {
     english: "set",
     spanish: "establecer",
+    portuguese: "estabelecer",
     present: "set\n/sɛt/",
     past: "set\n/sɛt/"
   },
   {
     english: "sit",
     spanish: "sentarse",
+    portuguese: "sentar-se",
     present: "sit\n/sɪt/",
     past: "sat\n/sæt/"
   },
   {
     english: "speak",
     spanish: "hablar",
+    portuguese: "falar",
     present: "speak\n/spiːk/",
     past: "spoke\n/spoʊk/"
   },
   {
     english: "spend",
     spanish: "gastar",
+    portuguese: "gastar",
     present: "spend\n/spɛnd/",
     past: "spent\n/spɛnt/"
   },
   {
     english: "stand",
     spanish: "estar de pie\nponerse de pie",
+    portuguese: "ficar de pé\nlevantar-se",
     present: "stand\n/stænd/",
     past: "stood\n/stʊd/"
   },
   {
     english: "steal",
     spanish: "robar",
+    portuguese: "roubar",
     present: "steal\n/stiːl/",
     past: "stole\n/stoʊl/"
   },
   {
     english: "take",
     spanish: "tomar",
+    portuguese: "tomar/pegar",
     present: "take\n/teɪk/",
     past: "took\n/tʊk/"
   },
   {
     english: "teach",
     spanish: "enseñar",
+    portuguese: "ensinar",
     present: "teach\n/tiːtʃ/",
     past: "taught\n/tɔːt/"
   },
   {
     english: "tell",
     spanish: "decir a alguien",
+    portuguese: "dizer a alguém",
     present: "tell\n/tɛl/",
     past: "told\n/toʊld/"
   },
   {
     english: "think",
     spanish: "pensar",
+    portuguese: "pensar",
     present: "think\n/θɪŋk/",
     past: "thought\n/θɔːt/"
   },
   {
     english: "throw",
     spanish: "lanzar/tirar",
+    portuguese: "jogar/atirar",
     present: "throw\n/θroʊ/",
     past: "threw\n/θruː/"
   },
   {
     english: "understand",
     spanish: "entender/comprender",
+    portuguese: "entender/compreender",
     present: "understand\n/ˌʌndərˈstænd/",
     past: "understood\n/ˌʌndərˈstʊd/"
   },
   {
     english: "wake",
     spanish: "despertar",
+    portuguese: "acordar",
     present: "wake\n/weɪk/",
     past: "woke\n/woʊk/"
   },
   {
     english: "wear",
     spanish: "llevar puesto/usar",
+    portuguese: "usar/vestir",
     present: "wear\n/wɛr/",
     past: "wore\n/wɔːr/"
   },
   {
     english: "win",
     spanish: "ganar",
+    portuguese: "ganhar/vencer",
     present: "win\n/wɪn/",
     past: "won\n/wʌn/"
   },
   {
     english: "write",
     spanish: "escribir",
+    portuguese: "escrever",
     present: "write\n/raɪt/",
     past: "wrote\n/roʊt/"
   }
