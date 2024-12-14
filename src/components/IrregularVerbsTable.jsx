@@ -394,7 +394,7 @@ export default function IrregularVerbsTable() {
         </div>
         
         <div className="overflow-x-auto print-section">
-          <table className="w-full border-collapse min-w-[640px] bg-white shadow-lg rounded-lg overflow-hidden">
+          <table className="w-full border-collapse md:min-w-[640px] bg-white shadow-lg rounded-lg overflow-hidden">
             <thead>
               <tr>
                 <th className="p-2 text-center border bg-gray-100 w-1/6">
