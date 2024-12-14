@@ -4,11 +4,25 @@ import IrregularVerbRow from './IrregularVerbRow';
 
 const data = [
   {
-    english: "be",
+    english: "be (1st person)",
     spanish: "ser/estar",
     portuguese: "ser/estar",
-    present: "am/is/are\n/æm/ɪz/ɑr/",
-    past: "was/were\n/wʌz/wɜr/"
+    present: "I am\n/aɪ æm/",
+    past: "I was\n/aɪ wʌz/"
+  },
+  {
+    english: "be (3rd person)",
+    spanish: "ser/estar",
+    portuguese: "ser/estar",
+    present: "he is, she is, it is\n/hɪz ɪz, ʃiː ɪz, ɪt ɪz/",
+    past: "he was, she was, it was\n/hɪz wʌz, ʃiː wʌz, ɪt wʌz/"
+  },
+  {
+    english: "be (plural)",
+    spanish: "ser/estar",
+    portuguese: "ser/estar",
+    present: "we are, you are, they are\n/wiː ɑr, juː ɑr, ðeɪ ɑr/",
+    past: "we were, you were, they were\n/wiː wɜr, juː wɜr, ðeɪ wɜr/"
   },
   {
     english: "begin",
