@@ -7,6 +7,7 @@ const data = [
   {
     english: "be",
     spanish: "ser/estar",
+    portuguese: "ser/estar",
     present: "I am\n/aɪ ˈæm/",
     past: "I was\n/wɒz/",
     presentAudio: "/audio/i-am.mp3",
@@ -31,6 +32,7 @@ const data = [
   {
     english: "become",
     spanish: "convertirse en",
+    portuguese: "tornar-se",
     present: "become\n/bɪˈkʌm/",
     past: "became\n/bɪˈkeɪm/"
   },
