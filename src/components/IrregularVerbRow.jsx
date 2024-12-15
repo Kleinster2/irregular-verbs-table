@@ -17,10 +17,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
   const playAudio = async (text) => {
     try {
       clearActiveAudio();
-      await new Promise(resolve => setTimeout(resolve, 100));
       
       let cleanText = text.split('\n')[0];
-      
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
         cleanText = 'red';
       }
@@ -31,9 +29,9 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       utterance.lang = 'en-US';
       
       const voices = await new Promise((resolve) => {
-        let voices = window.speechSynthesis.getVoices();
-        if (voices.length) {
-          resolve(voices);
+        const voiceList = window.speechSynthesis.getVoices();
+        if (voiceList.length) {
+          resolve(voiceList);
         } else {
           window.speechSynthesis.onvoiceschanged = () => {
             resolve(window.speechSynthesis.getVoices());
