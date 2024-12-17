@@ -130,7 +130,7 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
                 await playAudio("we are, we were,, you are, you were,, they are, they were");
 
               } else if (verb.english === "understand") {
-              await playAudio("Understand.");
+              await playAudio("Understand!");
               await delay(800);
               await playAudio("understood.");
        
