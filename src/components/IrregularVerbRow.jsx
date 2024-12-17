@@ -125,9 +125,9 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
               const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
               
               if (verb.present.includes("he is")) {
-                await playAudio("he is he was, she is she was, it is it was");
+                await playAudio("he is, he was,, she is, she was,, it is, it was");
               } else if (verb.present.includes("you are")) {
-                await playAudio("we are we were, you are you were, they are they were");
+                await playAudio("we are, we were,, you are, you were,, they are, they were");
               } else {
                 await playAudio(verb.present);
                 await delay(800);
