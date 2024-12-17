@@ -62,7 +62,7 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       utterance.text = cleanText;
       
       utterance.onend = () => {
-        window.speechSynthesis.cancel();
+        //window.speechSynthesis.cancel();   // Remove the cancel call so that the next utterance can play
       };
 
       utterance.onerror = () => {
