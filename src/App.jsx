@@ -1,5 +1,3 @@
-// This is a test comment to trigger deployment
-
 import React from 'react'
 import './App.css'
 import IrregularVerbsTable from './components/IrregularVerbsTable'
