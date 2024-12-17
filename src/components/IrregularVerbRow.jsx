@@ -129,6 +129,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
               } else if (verb.present.includes("you are")) {
                 await playAudio("we are, we were,, you are, you were,, they are, they were");
               } else {
+                const presentText = verb.english === "understand" ? verb.present + "." : verb.present;
+                const pastText = verb.english === "understand" ? verb.past + "." : verb.past;
                 await playAudio(verb.present + ".");
                 await delay(800);
                 await playAudio(verb.past + ".");
