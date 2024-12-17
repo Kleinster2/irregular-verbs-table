@@ -128,12 +128,16 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
                 await playAudio("he is, he was,, she is, she was,, it is, it was");
               } else if (verb.present.includes("you are")) {
                 await playAudio("we are, we were,, you are, you were,, they are, they were");
-              } else {
-                const presentText = verb.english === "understand" ? verb.present + "." : verb.present;
-                const pastText = verb.english === "understand" ? verb.past + "." : verb.past;
-                await playAudio(verb.present + ".");
+
+              } else if (verb.english === "understand") {
+                // Add a zero-width space after 'understand'
+                await playAudio("understand\u200B.");
                 await delay(800);
-                await playAudio(verb.past + ".");
+                await playAudio("understood\u200B.");
+              } else {
+                await playAudio(verb.present);
+                await delay(800);
+                await playAudio(verb.past);
               }
             }, 500);
           }}
