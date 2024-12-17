@@ -15,7 +15,11 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
 
   const playAudio = async (text) => {
     try {
-      clearActiveAudio();
+      if (activeTimeout) {
+        clearTimeout(activeTimeout);
+        activeTimeout = null;
+      }
+      window.speechSynthesis.cancel();
       
       let cleanText = text.split('\n')[0];
       if (cleanText === 'read' && verb.english === 'read' && text === verb.past) {
@@ -81,12 +85,14 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.present}
         <button 
-          onMouseEnter={(e) => {
-            const button = e.currentTarget;
-            button.dataset.timeout = setTimeout(() => playAudio(verb.present), 500);
+          onMouseEnter={() => {
+            activeTimeout = setTimeout(() => playAudio(verb.present), 500);
           }}
-          onMouseLeave={(e) => {
-            clearTimeout(e.currentTarget.dataset.timeout);
+          onMouseLeave={() => {
+            if (activeTimeout) {
+              clearTimeout(activeTimeout);
+              activeTimeout = null;
+            }
           }}
           className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md cursor-pointer"
           aria-label="Play present tense pronunciation"
