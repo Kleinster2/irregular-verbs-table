@@ -103,12 +103,14 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       <td className="px-6 py-4 whitespace-pre-line">
         {verb.past}
         <button 
-          onMouseEnter={(e) => {
-            const button = e.currentTarget;
-            button.dataset.timeout = setTimeout(() => playAudio(verb.past), 500);
+          onMouseEnter={() => {
+            activeTimeout = setTimeout(() => playAudio(verb.past), 500);
           }}
-          onMouseLeave={(e) => {
-            clearTimeout(e.currentTarget.dataset.timeout);
+          onMouseLeave={() => {
+            if (activeTimeout) {
+              clearTimeout(activeTimeout);
+              activeTimeout = null;
+            }
           }}
           className="ml-2 p-1 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md cursor-pointer"
           aria-label="Play past tense pronunciation"
@@ -118,9 +120,8 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
       </td>
       <td className="px-6 py-4 whitespace-pre-line text-center">
         <button 
-          onMouseEnter={(e) => {
-            const button = e.currentTarget;
-            button.dataset.timeout = setTimeout(async () => {
+          onMouseEnter={() => {
+            activeTimeout = setTimeout(async () => {
               const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
               
               if (verb.present.includes("he is")) {
@@ -144,8 +145,11 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
               }
             }, 500);
           }}
-          onMouseLeave={(e) => {
-            clearTimeout(e.currentTarget.dataset.timeout);
+          onMouseLeave={() => {
+            if (activeTimeout) {
+              clearTimeout(activeTimeout);
+              activeTimeout = null;
+            }
           }}
           className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 hover:scale-110 transform transition-all duration-200 hover:shadow-md"
           aria-label="Play present and past tense contrast"
