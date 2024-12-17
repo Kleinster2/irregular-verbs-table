@@ -129,11 +129,6 @@ export default function IrregularVerbRow({ verb, language = 'spanish' }) {
               } else if (verb.present.includes("you are")) {
                 await playAudio("we are, we were,, you are, you were,, they are, they were");
 
-              } else if (verb.english === "understand") {
-                // Add a zero-width space after 'understand'
-                await playAudio("understand\u200B.");
-                await delay(800);
-                await playAudio("understood\u200B.");
               } else {
                 await playAudio(verb.present);
                 await delay(800);
