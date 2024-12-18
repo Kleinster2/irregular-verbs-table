@@ -193,6 +193,13 @@ const data = [
     past: "made\n/meɪd/"
   },
   {
+    english: "meet",
+    spanish: "encontrar",
+    portuguese: "encontrar",
+    present: "meet\n/miːt/",
+    past: "met\n/mɛt/"
+  },  
+  {
     english: "read",
     spanish: "leer",
     portuguese: "ler",
@@ -233,13 +240,6 @@ const data = [
     portuguese: "enviar/mandar",
     present: "send\n/sɛnd/",
     past: "sent\n/sɛnt/"
-  },
-  {
-    english: "show",
-    spanish: "mostrar",
-    portuguese: "mostrar",
-    present: "show\n/ʃoʊ/",
-    past: "showed\n/ʃoʊd/"
   },
   {
     english: "sing",
